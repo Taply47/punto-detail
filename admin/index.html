@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel · Punto Detail</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#050605">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;0,800;1,700;1,800;1,900&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/styles.css?v=20261022">
+  <link rel="stylesheet" href="/admin/admin.css?v=20261022">
+</head>
+<body class="admin">
+
+  <!-- ============ LOGIN ============ -->
+  <section class="login" data-login>
+    <form class="login-card" data-login-form>
+      <img src="/assets/img/logo-small.webp" alt="" width="84" height="84" class="login-logo">
+      <h1>Panel de <em>Punto Detail</em></h1>
+      <p>Ingresá la contraseña para administrar productos, servicios y datos del negocio.</p>
+      <label class="field"><span>Contraseña</span><input type="password" data-password autocomplete="current-password" required autofocus></label>
+      <button class="btn btn--lime btn--block" type="submit">Ingresar</button>
+      <p class="msg" data-login-msg role="alert"></p>
+      <a class="back" href="/">← Volver a la página</a>
+    </form>
+  </section>
+
+  <!-- ============ APP ============ -->
+  <div class="app" data-app hidden>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Ver la página">
+        <span class="brand-pd"><b>P</b><b>D</b></span>
+        <span class="brand-name">Panel</span>
+      </a>
+      <div class="top-actions">
+        <a class="btn btn--ghost btn--sm" href="/" target="_blank" rel="noopener">Ver página</a>
+        <button class="btn btn--ghost btn--sm" type="button" data-logout>Salir</button>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Secciones del panel">
+      <button class="tab is-on" role="tab" type="button" data-tab-btn="products">Productos <small data-count-products></small></button>
+      <button class="tab" role="tab" type="button" data-tab-btn="services">Servicios <small data-count-services></small></button>
+      <button class="tab" role="tab" type="button" data-tab-btn="settings">Ajustes</button>
+    </nav>
+
+    <p class="banner" data-banner hidden></p>
+
+    <main class="panel">
+      <!-- Productos -->
+      <section data-tab="products">
+        <div class="bar">
+          <label class="search"><span class="sr-only">Buscar</span><input type="search" data-filter="products" placeholder="Buscar producto…" autocomplete="off"></label>
+          <button class="btn btn--lime btn--sm" type="button" data-add="products">+ Agregar producto</button>
+          <button class="btn btn--ghost btn--sm" type="button" data-open-import>Importar lista</button>
+        </div>
+        <div class="list" data-list="products"></div>
+        <p class="empty" data-empty="products" hidden>Todavía no hay productos. Tocá “Agregar producto”.</p>
+      </section>
+
+      <!-- Servicios -->
+      <section data-tab="services" hidden>
+        <div class="bar">
+          <label class="search"><span class="sr-only">Buscar</span><input type="search" data-filter="services" placeholder="Buscar servicio…" autocomplete="off"></label>
+          <button class="btn btn--lime btn--sm" type="button" data-add="services">+ Agregar servicio</button>
+        </div>
+        <p class="hint">Si dejás el precio vacío, en la página aparece “Consultar precio”.</p>
+        <div class="list" data-list="services"></div>
+        <p class="empty" data-empty="services" hidden>Todavía no hay servicios. Tocá “Agregar servicio”.</p>
+      </section>
+
+      <!-- Ajustes -->
+      <section data-tab="settings" hidden>
+        <form class="settings" data-settings onsubmit="return false">
+          <label class="field"><span>WhatsApp para pedidos (con código de país, solo números)</span><input data-s="whatsapp" inputmode="numeric" placeholder="5492920218871"></label>
+          <label class="field"><span>Instagram (sin @)</span><input data-s="instagram" placeholder="punt0.detail"></label>
+          <label class="field"><span>Ciudad</span><input data-s="city" placeholder="Carmen de Patagones"></label>
+          <label class="field"><span>Dirección</span><input data-s="address" placeholder="Calle y número"></label>
+          <label class="field"><span>Horarios</span><input data-s="hours" placeholder="Lunes a sábado de 9 a 19 hs"></label>
+          <p class="hint">La contraseña del panel se cambia en Cloudflare (variable <b>ADMIN_PASSWORD</b>).</p>
+          <div>
+            <button class="btn btn--ghost btn--sm" type="button" data-export>Descargar copia de seguridad</button>
+            <p class="hint" style="margin-top:8px">Guarda productos, servicios y ajustes en un archivo. Las fotos no se incluyen.</p>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="savebar">
+      <span class="status" data-status role="status" aria-live="polite">Sin cambios</span>
+      <button class="btn btn--lime" type="button" data-save disabled>Guardar cambios</button>
+    </footer>
+  </div>
+
+  <datalist id="cats"></datalist>
+
+  <dialog class="modal" data-import>
+    <form method="dialog" class="modal-card">
+      <h2>Importar lista</h2>
+      <p>Pegá un producto por línea. Opcional: <b>Nombre | Tamaño | Precio</b></p>
+      <textarea rows="8" data-import-text placeholder="Cera líquida | 500 ml | 12500&#10;Shampoo | 1 L"></textarea>
+      <div class="modal-actions">
+        <button class="btn btn--ghost btn--sm" type="button" data-import-cancel>Cancelar</button>
+        <button class="btn btn--lime btn--sm" type="button" data-import-ok>Agregar productos</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
+
+  <script defer src="/lib/manifest.js?v=20261022"></script>
+  <script defer src="/admin/admin.js?v=20261022"></script>
+</body>
+</html>
